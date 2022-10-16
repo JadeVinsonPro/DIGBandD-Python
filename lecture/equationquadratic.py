@@ -1,8 +1,9 @@
 from math import *
 import math
-
+#Description de la fonction
 print("Résolution d'une équation du second degré")
 
+#Déclaration des variables
 a = int(input("Entrez a : "))
 b = int(input("Entrez b : "))
 c = int(input("Entrez c : "))
