@@ -1,4 +1,4 @@
-# Crypter un mot
+# Crypter un mot en changeant son code ASCII
 d = input("Saisir le texte : ")
 rar = ""
 d = str.lower(d)
