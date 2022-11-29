@@ -1,4 +1,4 @@
-#mettre dans des tableaux chaque liste
+#mettre dans des tableaux chaque listeurlfile.txt
 
 Tid10 = 0
 Tid20 = 0

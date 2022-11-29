@@ -1,0 +1,8 @@
+
+split_string = []
+split_string = split_string.append(fichier)
+print(split_string)
+for i in contenu_du_fichier:
+    split_string = split_string.split("\t")
+
+print(split_string)
