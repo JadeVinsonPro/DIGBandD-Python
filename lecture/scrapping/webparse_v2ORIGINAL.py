@@ -1,8 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-import pandas as pd
-
-
 
 # liste de tÃ©lÃ©phone
 tel_list = {""};
@@ -28,7 +25,6 @@ for line in open("../../../../Downloads/listeurlfile.txt").readlines():
     print(title)
 
     for link in soup.find_all('a'):
-        print("lin",link)
         link_text = link.get('href')
         if link_text is not None:
             print('Variable is not None')
@@ -36,17 +32,9 @@ for line in open("../../../../Downloads/listeurlfile.txt").readlines():
         else:
             print('Variable is None')
 
-    for numero in soup.find_all('numero'):
-        link_text = numero.get('')
 
-numero = "+33 6 10 20 30 10"
-
-regex = "(0|\\+33|0033)[1-9][0-9]{8}"
-
-if re.match(regexp, numero) is not None:
-
-    print("Numero valide")
-
-else:
-
-    print("Numero invalide")
+# trie des données de la confidence la plus grande à la plus petite
+rules = rules.sort_values('confidence', ascending=False)
+#print(rules.sort_values('confidence', ascending=False))
+# sauvegarde du document dans le dossier nommé "résultats.csv"
+export_csv = rules.to_csv('../Apriori/resutats.csv', index=None, header=True,encoding='utf-8')
