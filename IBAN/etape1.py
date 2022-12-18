@@ -16,8 +16,8 @@ for mot in contenu_du_fichier:
 bbanComplet = []
 
 
-codePays = input("Quel est le code pays ? ")
-cleControle = int(input("Quel est la clée de contrôle ? "))
+codePays = input("Quel est le code pays ? (Ex : FR) ")
+cleControle = int(input("Quel est la clée de contrôle ? (Ex : 14) "))
 bbanComplet.append(codePays)
 bbanComplet.append(cleControle)
 print(bbanComplet)

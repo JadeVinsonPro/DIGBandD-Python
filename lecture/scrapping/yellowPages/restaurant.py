@@ -12,10 +12,13 @@ def scrape_page(soup, quotes):
     for quote_element in quote_elements:
         # extracting the text of the quote
         text = quote_element.find('span', class_='text').text
+
+        categorie = quote_element.find('div', class_='category').text
+        restaurant = quote_element.find('a', class_='listing-name').text
         # extracting the author of the quote
         author = quote_element.find('small', class_='author').text
 
-        # extracting the tag <a> HrTML elements related to the quote
+        # extracting the tag <a> HTML elements related to the quote
         tag_elements = quote_element.find('div', class_='tags').find_all('a', class_='tag')
 
         # storing the list of tag strings in a list
@@ -27,6 +30,8 @@ def scrape_page(soup, quotes):
         # in a new format in the quote list
         quotes.append(
             {
+                'categorie': categorie,
+                'restaurant': restaurant,
                 'text': text,
                 'author': author,
                 'tags': ', '.join(tags)  # merging the tags into a "A, B, ..., Z" string
@@ -34,7 +39,7 @@ def scrape_page(soup, quotes):
         )
 
 # the url of the home page of the target website
-base_url = 'https://quotes.toscrape.com'
+base_url = 'https://www.yellowpages.com/new-york-ny'
 
 # defining the User-Agent header to use in the GET request below
 headers = {
@@ -75,7 +80,7 @@ while next_li_element is not None:
 
 # reading  the "quotes.csv" file and creating it
 # if not present
-csv_file = open('quote.csv', 'w', encoding='utf-8', newline='')
+csv_file = open('Restaurants.csv', 'w', encoding='utf-8', newline='')
 
 # initializing the writer object to insert data
 # in the CSV file

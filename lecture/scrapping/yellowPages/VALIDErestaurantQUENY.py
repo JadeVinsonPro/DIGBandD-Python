@@ -4,19 +4,34 @@ import csv
 
 def scrape_page(soup, quotes):
     # retrieving all the quote <div> HTML element on the page
-    quote_elements = soup.find_all('div', class_='quote')
+    quote_elements = soup.find_all('div', class_='info')
+    informations_elements = soup.find_all('div', class_='info-section info-secondary')
 
     # iterating over the list of quote elements
     # to extract the data of interest and store it
     # in quotes
     for quote_element in quote_elements:
-        # extracting the text of the quote
-        text = quote_element.find('span', class_='text').text
-        # extracting the author of the quote
-        author = quote_element.find('small', class_='author').text
 
-        # extracting the tag <a> HrTML elements related to the quote
-        tag_elements = quote_element.find('div', class_='tags').find_all('a', class_='tag')
+        #numero = quote_element.find('h2', class_='n').text
+        nom = quote_element.find('span').text
+        tag_elements = quote_element.find('div', class_='categories').find_all('a')
+        adresse = quote_element.find('div', class_='street-address')
+        if adresse is not None:
+            a = adresse.text
+
+        ville = quote_element.find('div', class_='locality')
+        if ville is not None:
+            v = ville.text
+
+        lien = quote_element.find('a', 'href')
+        #recuperer tous les liens de la page
+        #for a_href in quote_element.find_all("a", href=True):
+            #print(a_href["href"])
+
+        tel = quote_element.find('div', class_="phones phone primary")
+        if tel is not None:
+            x = tel.text
+
 
         # storing the list of tag strings in a list
         tags = []
@@ -27,14 +42,20 @@ def scrape_page(soup, quotes):
         # in a new format in the quote list
         quotes.append(
             {
-                'text': text,
-                'author': author,
-                'tags': ', '.join(tags)  # merging the tags into a "A, B, ..., Z" string
+                #'numero': numero,
+
+                'nom': nom,
+                'tags': ', '.join(tags),# merging the tags into a "A, B, ..., Z" string
+                'adresse': a,
+                'ville': v,
+                'lien': lien,
+                'phones phone primary': x
+
             }
         )
 
 # the url of the home page of the target website
-base_url = 'https://quotes.toscrape.com'
+base_url = 'https://www.yellowpages.com/new-york-ny/restaurants'
 
 # defining the User-Agent header to use in the GET request below
 headers = {
@@ -75,14 +96,14 @@ while next_li_element is not None:
 
 # reading  the "quotes.csv" file and creating it
 # if not present
-csv_file = open('quote.csv', 'w', encoding='utf-8', newline='')
+csv_file = open('NYRestaurant.csv', 'w', encoding='utf-8', newline='')
 
 # initializing the writer object to insert data
 # in the CSV file
 writer = csv.writer(csv_file)
 
 # writing the header of the CSV file
-writer.writerow(['Text', 'Author', 'Tags'])
+writer.writerow(['Nom du restaurant', 'Tags', 'Adresse', 'Ville', 'Site', 'Numéro de tél'])
 
 # writing each row of the CSV
 for quote in quotes:
